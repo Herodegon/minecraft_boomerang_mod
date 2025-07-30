@@ -1,5 +1,6 @@
 package net.herodegon.tutorialmod.item.custom;
 
+import net.herodegon.tutorialmod.entity.custom.BoomerangProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
@@ -52,8 +53,10 @@ public class BoomerangItem extends Item implements ProjectileItem
     {
         ItemStack itemStack = user.getStackInHand(hand);
         useDir = user.getRotationVector().normalize();
-        if (world instanceof ServerWorld serverWorld) {
-			ProjectileEntity.spawnWithVelocity(SnowballEntity::new, serverWorld, itemStack, user, 0.0F, SPEED, 1.0F);
+        if (!world.isClient()) {
+			BoomerangProjectileEntity boomerang = new BoomerangProjectileEntity(world, user);
+            boomerang.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, SPEED, 0.0f);
+            world.spawnEntity(boomerang);
 		}
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         itemStack.decrementUnlessCreative(1, user);

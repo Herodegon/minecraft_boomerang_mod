@@ -33,7 +33,7 @@ public class BoomerangProjectileEntity extends PersistentProjectileEntity
         float distance = (float) this.getPos().distanceTo(this.getOwner().getPos());
         if (distance > RANGE)
         {
-            setVelocity(getVelocity().multiply(-1.0, 0.0, -1.0));
+            setVelocity(getVelocity().multiply(-1.0, -1.0, -1.0));
         }
     }
 
