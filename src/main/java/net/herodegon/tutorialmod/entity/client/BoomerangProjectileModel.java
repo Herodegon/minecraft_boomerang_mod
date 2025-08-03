@@ -1,7 +1,6 @@
 package net.herodegon.tutorialmod.entity.client;
 
-import net.herodegon.tutorialmod.entity.custom.BoomerangProjectileEntity;
-import net.minecraft.client.data.Model;
+import net.herodegon.tutorialmod.TutorialMod;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
@@ -11,13 +10,16 @@ import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 
 // Made with Blockbench 4.12.5
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class BoomerangProjectileModel extends EntityModel<BoomerangProjectileEntity> {
+public class BoomerangProjectileModel extends EntityModel<BoomerangProjectileRenderState> {
+	public static final EntityModelLayer BOOMERANG_ENTITY = new EntityModelLayer(Identifier.of(TutorialMod.MOD_ID, "boomerang_entity"), "main");
 	private final ModelPart elbow;
 	private final ModelPart arm1;
 	private final ModelPart arm2;
@@ -54,14 +56,17 @@ public class BoomerangProjectileModel extends EntityModel<BoomerangProjectileEnt
 		return TexturedModelData.of(modelData, 32, 32);
 	}
 	
-	public void setAngles(BoomerangProjectileEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Override
+	public void setAngles(BoomerangProjectileRenderState renderState) {
+		// You can use renderState.rotation here to rotate parts of the model
+		// For example: this.elbow.yaw = renderState.rotation * 0.017453292F; // Convert degrees to radians
 	}
 
-	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		elbow.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		arm1.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		arm2.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		ornament.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+		int color = ColorHelper.getArgb((int) red, (int) green, (int) blue, (int) alpha);
+		elbow.render(matrices, vertexConsumer, light, overlay, color);
+		arm1.render(matrices, vertexConsumer, light, overlay, color);
+		arm2.render(matrices, vertexConsumer, light, overlay, color);
+		ornament.render(matrices, vertexConsumer, light, overlay, color);
 	}
 }

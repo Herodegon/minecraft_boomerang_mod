@@ -8,12 +8,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 
 public class BoomerangProjectileEntity extends PersistentProjectileEntity
 {
     private float rotation = 0.0f;
+    public Vec2f groundedOffset = Vec2f.ZERO;
     private static final float RANGE = 10.0f;
     private static final float DAMAGE = 3.0f;
 
@@ -62,4 +66,35 @@ public class BoomerangProjectileEntity extends PersistentProjectileEntity
             entity.damage(serverWorld, this.getDamageSources().thrown(this, this.getOwner()), DAMAGE);
         }
 	}
+
+    @Override
+    protected void onBlockHit(BlockHitResult result)
+    {
+        super.onBlockHit(result);
+        if (result.getSide() == Direction.NORTH)
+        {
+            this.groundedOffset = new Vec2f(215.0f, 0.0f);
+        }
+        if (result.getSide() == Direction.EAST)
+        {
+            this.groundedOffset = new Vec2f(215.0f, 90.0f);
+        }
+        if (result.getSide() == Direction.SOUTH)
+        {
+            this.groundedOffset = new Vec2f(215.0f, 180.0f);
+        }
+        if (result.getSide() == Direction.WEST)
+        {
+            this.groundedOffset = new Vec2f(215.0f, 270.0f);
+        }
+
+        if(result.getSide() == Direction.UP)
+        {
+            this.groundedOffset = new Vec2f(285.0f, 0.0f);
+        }
+        if(result.getSide() == Direction.DOWN)
+        {
+            this.groundedOffset = new Vec2f(115.0f, 0.0f);
+        }
+    }
 }
