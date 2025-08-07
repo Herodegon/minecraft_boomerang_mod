@@ -1,38 +1,38 @@
 {
 	"schemaVersion": 1,
-	"id": "tutorialmod",
+	"id": "boomerangmod",
 	"version": "${version}",
-	"name": "TutorialMod",
-	"description": "An example mod for practicing with Fabric.",
+	"name": "boomerangmod",
+	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Herodegon"
+		"Me!"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/tutorialmod/icon.png",
+	"icon": "assets/boomerangmod/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.herodegon.tutorialmod.TutorialMod"
+			"net.herodegon.boomerangmod.BoomerangMod"
 		],
 		"client": [
-			"net.herodegon.tutorialmod.TutorialModClient"
+			"net.herodegon.boomerangmod.BoomerangModClient"
 		]
 	},
 	"mixins": [
-		"tutorialmod.mixins.json",
+		"boomerangmod.mixins.json",
 		{
-			"config": "tutorialmod.client.mixins.json",
+			"config": "boomerangmod.client.mixins.json",
 			"environment": "client"
 		}
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
-		"minecraft": "~1.21.4",
-		"java": ">=21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
 		"fabric-api": "*"
 	},
 	"suggests": {
